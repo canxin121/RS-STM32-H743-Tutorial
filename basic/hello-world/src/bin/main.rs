@@ -2,6 +2,7 @@
 //! In this package, we use defmt with RTT to println hello to print "hello world" to the console.
 //! I highly recomended you to try learning defmt(https://defmt.ferrous-systems.com/introduction) more.
 //! Here I only use the most simply fn from defmt for example.
+//! You can also try to set some breakpoints and debug it.
 #![no_std]
 #![no_main]
 use defmt::{error, info, println, warn};
