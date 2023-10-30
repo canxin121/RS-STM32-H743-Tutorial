@@ -17,5 +17,20 @@
                 "isDefault": true
             },
         },
+        {
+            "label": "cargo flash release Crt",
+            "type": "shell",
+            "command": "~/.cargo/bin/cargo",
+            "args": [
+                "flash",
+                "--release",
+                "--bin",
+                "${fileBasenameNoExtension}",
+                "--chip",
+                "STM32H745ZITx",
+                "--target",
+                "thumbv7em-none-eabihf"
+            ]
+        }
     ]
 }

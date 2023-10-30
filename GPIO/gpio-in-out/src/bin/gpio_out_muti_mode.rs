@@ -2,10 +2,8 @@
 #![no_std]
 #![no_main]
 
-use defmt::println;
 use defmt_rtt as _;
 use panic_probe as _;
-
 use stm32h7xx_hal::{gpio, prelude::*};
 
 use cortex_m_rt::entry;
@@ -21,25 +19,21 @@ fn main() -> ! {
 
     let ccdr = rcc.sysclk(120.MHz()).freeze(pwrcfg, &dp.SYSCFG);
     let gpiob = dp.GPIOB.split(ccdr.peripheral.GPIOB);
-    let mut led_green = gpiob.pb0.into_push_pull_output();
-    let mut led_red = gpiob.pb14.into_push_pull_output();
-
-    // Also, we can set pin speed.
-    led_red.set_speed(gpio::Speed::High);
+    let mut led_green = gpiob.pb0.into_dynamic();
+    let mut led_red = gpiob.pb14.into_dynamic();
 
     let mut delay = cp.SYST.delay(ccdr.clocks);
 
     loop {
         // light up
-        println!("Yellow");
-        led_green.set_high();
+
+        led_green.make_push_pull_output_in_state(gpio::PinState::High);
         delay.delay_ms(500u32);
-        println!("Red");
-        led_red.set_high();
-        delay.delay_ms(500u16);
-        // led out after 500ms
-        led_green.set_low();
-        led_red.set_low();
-        delay.delay_ms(500u16);
+        led_green.set_low().unwrap();
+        delay.delay_ms(500u32);
+        led_red.make_push_pull_output_in_state(gpio::PinState::High);
+        delay.delay_ms(500u32);
+        led_red.set_low().unwrap();
+        delay.delay_ms(500u32);
     }
 }
