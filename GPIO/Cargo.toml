@@ -1,5 +1,5 @@
 [package]
-name = "gpio-in-out"
+name = "gpio"
 version = "0.1.0"
 authors = ["canxin <1969730106@qq.com>"]
 edition = "2021"
