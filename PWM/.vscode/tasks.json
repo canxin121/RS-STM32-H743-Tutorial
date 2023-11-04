@@ -40,8 +40,6 @@
                 "erase",
                 "--chip",
                 "STM32H745ZITx",
-                "--chip-description-path",
-                "./memory.x"
             ]
         }
     ]
