@@ -52,12 +52,12 @@ fn main() -> ! {
 }
 #[interrupt]
 fn EXTI15_10() {
-    println!("enter exti15_10;");
     free(|cs| {
         if let Some(button) = BUTTONBLUE_PIN.borrow(cs).borrow_mut().as_mut() {
             if button.check_interrupt() {
                 if let Some(led) = LED_GREEN.borrow(cs).borrow_mut().as_mut() {
                     led.toggle();
+                    println!("led toggle.")
                 }
                 button.clear_interrupt_pending_bit();
             }
